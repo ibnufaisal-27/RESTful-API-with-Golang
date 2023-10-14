@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"log"
+	"mekari/models"
 	"os"
 	"strconv"
 
@@ -40,7 +41,8 @@ func init() {
 	if os.Getenv("mode") == "development" {
 		db.LogMode(true)
 	}
-	db.Debug().AutoMigrate()
+	db.Debug().AutoMigrate(
+		&models.Employee{})
 }
 
 func GetDB() *gorm.DB {
