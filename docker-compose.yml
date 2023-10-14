@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      POSTGRES_USER: "ibnufaisal"
+      POSTGRES_PASSWORD: "P455w0rd"
+      POSTGRES_DB: "mekari"
+    ports:
+      - "5432:5432"
+
+  app:
+    container_name: mekari
+    image: mekari:latest
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      PORT: "8081"
+      CONFIG_DATABASE_TYPE: "postgres"
+      CONFIG_DATABASE_HOST: "postgres"
+      CONFIG_DATABASE_PORT: "5432"
+      CONFIG_DATABASE_USER: "ibnufaisal"
+      CONFIG_DATABASE_PASSWORD: "P455w0rd"
+      CONFIG_DATABASE_NAME: "mekari"
+volumes:
+  db-data:
