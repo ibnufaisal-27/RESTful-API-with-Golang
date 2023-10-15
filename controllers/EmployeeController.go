@@ -63,7 +63,7 @@ func Create(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, responseService)
+	context.JSON(http.StatusCreated, responseService)
 }
 
 // GetEmployees godoc
@@ -113,6 +113,14 @@ func FindEmployee(context *gin.Context) {
 
 	responseService := service.FindEmployee(idRequest)
 	if responseService.Error != nil {
+		if responseService.Error.Error() == "record not found" {
+			context.AbortWithStatusJSON(
+				http.StatusNotFound,
+				model.ResponseData{
+					Errors: responseService.Errors,
+				})
+			return
+		}
 		context.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
 			model.ResponseData{

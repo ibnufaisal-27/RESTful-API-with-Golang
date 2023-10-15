@@ -14,8 +14,7 @@ import (
 var db *gorm.DB
 
 func init() {
-
-	e := godotenv.Load()
+	e := godotenv.Load("../.env")
 	if e != nil {
 		log.Println(e)
 	}
@@ -29,7 +28,6 @@ func init() {
 	conn, err := gorm.Open("postgres", "host="+dbHost+" user="+username+" password="+password+" dbname="+dbName+" port="+dbPort+" sslmode=disable TimeZone=Asia/Jakarta")
 
 	if err != nil {
-
 		log.Println(err)
 	}
 	err = conn.DB().Ping()
