@@ -34,6 +34,15 @@ func (e Employee) Find(id int) (*Employee, error) {
 	return &e, nil
 }
 
+func (e Employee) FindByEntity(request model.Employee) (*Employee, error) {
+	err := db.Model(Employee{}).Where(&request).Take(&e).Error
+
+	if err != nil {
+		return nil, err
+	}
+	return &e, nil
+}
+
 func (e Employee) Update(request model.Employee) (*model.Employee, error) {
 	err := db.Model(Employee{}).Where("id = ?", request.ID).Updates(&model.Employee{
 		FirstName: request.FirstName,

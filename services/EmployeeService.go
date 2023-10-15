@@ -9,8 +9,16 @@ import (
 func CreateEmployee(request model.Employee) model.ResponseData {
 	var employee repo.Employee
 
-	// save employee
+	//validate if email already exist
+	dataEmployee, errFind := employee.FindByEntity(model.Employee{Email: request.Email})
+	if dataEmployee != nil && errFind == nil {
+		return model.ResponseData{
+			Error:  errFind,
+			Errors: "email already exist",
+		}
+	}
 
+	// save employee
 	err := employee.Create(request)
 	if err != nil {
 		return model.ResponseData{
