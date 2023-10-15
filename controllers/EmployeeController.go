@@ -9,6 +9,16 @@ import (
 	"time"
 )
 
+// CreateEmployee godoc
+// @Summary Create New Employee based on payload
+// @Description Create New Employee
+// @ID create-employee
+// @Accept json
+// @Produce json
+// @Param employee body models.Employee true "Employee Data"
+// @Success 200 {object} model.ResponseData{data=models.Employee,code=int,message=string}
+// @Failure 422 {object} model.ResponseData{code=int,message=string}
+// @Router /employees [post]
 func Create(context *gin.Context) {
 	var payload model.PayloadEmployee
 	if err := context.ShouldBindJSON(&payload); err != nil {
@@ -56,6 +66,15 @@ func Create(context *gin.Context) {
 	context.JSON(http.StatusOK, responseService)
 }
 
+// GetEmployees godoc
+// @Summary Get All Employee
+// @Description Retrive Data All Employee
+// @ID get-employees
+// @Accept json
+// @Produce json
+// @Success 200 {object} model.ResponseData{data=models.Employee,code=int,message=string}
+// @Failure 422 {object} model.ResponseData{code=int,message=string}
+// @Router /employees [get]
 func GetEmployees(context *gin.Context) {
 	responseService := service.GetEmployees()
 	if responseService.Error != nil {
@@ -69,6 +88,17 @@ func GetEmployees(context *gin.Context) {
 	context.JSON(http.StatusOK, responseService.Data)
 }
 
+// FindEmployee godoc
+// @Summary Find Employee detail
+// @Description Find Data Employee by ID
+// @ID find-employee
+// @Accept json
+// @Produce json
+// @Param id path int true "Employee ID"
+// @Success 200 {object} model.ResponseData{data=models.Employee,code=int,message=string}
+// @Failure 400 {object} model.ResponseData{code=int,message=string}
+// @Failure 422 {object} model.ResponseData{code=int,message=string}
+// @Router /employees/:id [get]
 func FindEmployee(context *gin.Context) {
 	id := context.Param("id")
 	idRequest, err := strconv.Atoi(id)
@@ -93,6 +123,17 @@ func FindEmployee(context *gin.Context) {
 	context.JSON(http.StatusOK, responseService.Data)
 }
 
+// UpdateEmployee godoc
+// @Summary Update Employee data
+// @Description Update Data Employee by ID
+// @ID update-employee
+// @Accept json
+// @Produce json
+// @Param id path int true "Employee ID"
+// @Success 200 {object} model.ResponseData{data=models.Employee,code=int,message=string}
+// @Failure 400 {object} model.ResponseData{code=int,message=string}
+// @Failure 422 {object} model.ResponseData{code=int,message=string}
+// @Router /employees [put]
 func UpdateEmployee(context *gin.Context) {
 	var payload model.PayloadEmployee
 	if err := context.ShouldBindJSON(&payload); err != nil {
@@ -152,6 +193,17 @@ func UpdateEmployee(context *gin.Context) {
 	context.JSON(http.StatusOK, responseService)
 }
 
+// DeleteEmployee godoc
+// @Summary Delete Employee data
+// @Description Delete Data Employee by ID
+// @ID delete-employee
+// @Accept json
+// @Produce json
+// @Param id path int true "Employee ID"
+// @Success 200 {object} model.ResponseData{data=models.Employee,code=int,message=string}
+// @Failure 400 {object} model.ResponseData{code=int,message=string}
+// @Failure 422 {object} model.ResponseData{code=int,message=string}
+// @Router /employees [delete]
 func DeleteEmployee(context *gin.Context) {
 	id := context.Param("id")
 	idRequest, err := strconv.Atoi(id)
