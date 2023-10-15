@@ -54,6 +54,14 @@ func Create(context *gin.Context) {
 				})
 			return
 		}
+		if responseService.Errors == "email already exist" {
+			context.AbortWithStatusJSON(
+				http.StatusUnprocessableEntity,
+				model.ResponseData{
+					Errors: responseService.Errors,
+				})
+			return
+		}
 		context.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
 			model.ResponseData{

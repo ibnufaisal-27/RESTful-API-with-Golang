@@ -112,7 +112,7 @@ func TestFindEmployeesSuccess(t *testing.T) {
 	}
 }
 
-// Test Find Employee Failed (Negative Case), should return 400 code
+// Test Find Employee Failed (Negative Case), should return 404 code
 // Invalid employee ID request
 func TestFindEmployeesFailed(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -164,7 +164,7 @@ func TestUpdateEmployeeSuccess(t *testing.T) {
 	}
 }
 
-// Test Update Employee Failed (Negative Case), should return 400 code
+// Test Update Employee Failed (Negative Case), should return 404 code
 // Invalid id employee in request
 func TestUpdateEmployeeFailed(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -216,7 +216,7 @@ func TestDeleteEmployeesSuccess(t *testing.T) {
 	}
 }
 
-// Test Delete Employee Failed (Negative Case), should return 400 code
+// Test Delete Employee Failed (Negative Case), should return 404 code
 // Invalid employee ID request
 func TestDeleteEmployeesFailed(t *testing.T) {
 	gin.SetMode(gin.TestMode)
